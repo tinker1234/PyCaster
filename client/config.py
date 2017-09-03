@@ -1,4 +1,4 @@
-PyCasterHost = "otku.ga"
+PyCasterHost = "127.0.0.1"
 PyCasterPort = 4446
 PyCasterAuth = "123abc"
 PyCasterSSL = True
