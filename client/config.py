@@ -1,8 +1,8 @@
 PyCasterHost = "127.0.0.1"
 PyCasterPort = 4446
 PyCasterAuth = "123abc"
-PyCasterSSL = True
-playlist = "playlist/songs.lst"
-loop = True
-shuffle = True
+PyCasterSSL = False
+playlist = None
+loop = False
+shuffle = False
 directory = None
