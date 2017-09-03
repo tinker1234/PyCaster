@@ -24,3 +24,8 @@ PyCasterConnect: raised when can't connect to the server.
 PyCasterConnectionLost: raised when server closes the conection or goes down.
 PyCasterInvalidAuth: raised if the auth sent to the server is wrong.
 PyCasterAlreadyLoggedIn: raised if a source is already connected to the server.
+```
+# how to run
+```bash
+python PyCaster.py
+```
