@@ -70,3 +70,7 @@ PyCasterMaxListeners = 32 # max connections not including source
 PyCasterSendLogging = False # log whats sent number of bytes and id/peer
 PyCasterLogFile=open("pycaster.log", "w") # can be sys.stdout
 ```
+# How to run 
+```bash
+python server.py
+``
