@@ -72,5 +72,6 @@ PyCasterLogFile=open("pycaster.log", "w") # can be sys.stdout
 ```
 # How to run 
 ```bash
+pip -r requirements.txt
 python server.py
 ``
