@@ -7,4 +7,6 @@ PyCasterSSLKey = None
 PyCasterSSLCert = None
 PyCasterMaxListeners = 32
 PyCasterSendLogging = False
-PyCasterLogFile=open("pycaster.log", "w") #can be sys.stdout
+PyCasterLogFile=open("pycaster.log", "w")#can be sys.stdout
+ORIGIN="Access-Control-Allow-Origin: SAMEORIGIN\r\nAccess-C"
+
