@@ -10,7 +10,7 @@ class PyCaster:
     def __init__(self):
         self._client = PyCasterClient.Pycaster()
         self._client.login_as_source()
-        self.count = 3
+        self.count = 0
 
     def getSongs(self):
         if config.directory:
