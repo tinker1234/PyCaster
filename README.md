@@ -4,7 +4,7 @@ server up at: [radio](https://otku.ga:4446/)
 
 # What's new?
 1. PyCaster server now contains a home page
-2. When no source is connected it'll output a message saying so on /<anything but resource>
+2. When no source is connected it'll output a message saying so on `/<anything but resource>`
 
 # What's coming?
 
