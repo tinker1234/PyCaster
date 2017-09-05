@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PyCaster v.0.8</title>
+    <style type="text/css">
+        body {
+            /* supports all browsers */
+            background-image: url("img/background.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            -webkit-background-size: cover;
+            -o-background-size: cover;
+            -moz-background-size: cover;
+            font-family: "Droid Serif", "DejaVu Serif", "STIX", serif;
+        }
+        .content {
+            /* absolute center */
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+            background-image: url("img/content-bg.png");
+            height: 300px;
+            width: 300px;
+            color: aqua;
+        }
+        .title {
+            color: burlywood;
+            margin-bottom: 10px;
+        }
+
+        a:hover {
+            color: beige;
+        }
+        a:visited {
+            color: gold;
+        }
+        a {
+            color: darkorange;
+        }
+
+        .text, a, .title {
+            margin-left: 10px;
+
+        }
+        .marquee {
+            animation: marquee 5s linear infinite;
+            width: 200px;
+        }
+        @keyframes marquee {
+            0% { right: 0; }
+            100% { right: -100%; }
+        }
+        #audio {
+            width: 300px;
+        }
+        #title, #length, #listen, #max, #bitrate {
+            color: lavender;
+        }
+        #footer {
+            color: orchid;
+        }
+        #ptitle {
+            color: goldenrod;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p id="ptitle">PyCaster: 0.8</p>
+        <span id="ptitle">Run your own radio: <a href="https://github.com/tinker1234/PyCaster/" target="_blank">GitHub</a></span>
+
+        <div class="content">
+            <p class="title">Info</p>
+            <!-- marguee tag is used for older browsers -->
+            <span class="text">Title: </span><marquee class="marquee" direction="right" behavior="scroll" speed="5"><span id="title"></span></marquee>
+            <br>
+            <span class="text">Length: </span><span id="length"></span>
+            <br>
+            <span class="text">Listeners: </span><span id="listen"></span>
+            <br>
+            <span class="text">Max Listeners: </span><span id="max"></span>
+            <br>
+            <span class="text">Bitrate: </span><span id="bitrate"></span>
+            <br>
+            <audio controls id="audio">
+                <source type="audio/mp3" src="//$host.ga:$port/;">
+            </audio>
+            <br>
+            <div id="footer">
+                <p align="center">
+                    Please give credit to PyCaster devs either by name or linking to its GitHub
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function getContent(url) {
+     var xpr = new XMLHttpRequest();
+     xpr.open("GET", url, false);
+     xpr.send(null);
+     return xpr.responseText;
+    }
+    function grab() {
+        document.getElementById("title").innerText = getContent('/title');
+        document.getElementById("bitrate").innerText = getContent('/bitrate');
+        document.getElementById("listen").innerText = getContent('/listeners');
+        document.getElementById("max").innerText = getContent('/max-listeners');
+        document.getElementById("length").innerText = getContent('/length');
+
+
+    }
+    var int = 1000 * 60; //1000ms * 60 == 1 minute
+    var check = false;
+
+    if (check) {
+        window.setInterval(function () {grab();}, int);
+    } else {grab();} //get once
+</script>
+</html>
