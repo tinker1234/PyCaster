@@ -2,6 +2,16 @@
 PyCaster is a live radio streamer. You can stream MP3 files live to as many clients as possible, it uses twisted for most of the heavy stuff and is 100% open source.
 server up at: [radio](https://otku.ga:4446/)
 
+# What's new?
+1. PyCaster server now contains a home page
+2. When no source is connected it'll output a message saying so on /<anything but resource>
+
+# What's coming?
+
+1. D.J client using wxpython
+2. better documentation
+3. an actual mini template for http side of server
+
 # Server.py
 
 ```python
