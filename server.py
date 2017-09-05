@@ -124,15 +124,6 @@ class RadioServer(protocol.Protocol):
             print("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp, self.id)
 
-        elif not cl.source:
-            content = "<b>Source not connected..</b>"
-            resp = "HTTP/1.1 200 OK\r\n" + header.HTTP_RESP.format(
-                "text/html",
-                len(content),
-                content)
-            print("Client-Http-GET: " + get(data))
-            self.HTTPSendClient(resp, self.id)
-
         if dct.has_key("PyCasterAuth"):
             if not cl.sourceID:
                 auth = dct['PyCasterAuth']
@@ -151,6 +142,15 @@ class RadioServer(protocol.Protocol):
                 print("Source-Exists-IP: " + self.peer)
                 print("Source-Exists-ID: " + self.id)
                 self.closeCl(self.id)
+                
+        elif not cl.source:
+            content = "<b>Source not connected..</b>"
+            resp = "HTTP/1.1 200 OK\r\n" + header.HTTP_RESP.format(
+                "text/html",
+                len(content),
+                content)
+            print("Client-Http-GET: " + get(data))
+            self.HTTPSendClient(resp, self.id)
 
         elif dct.has_key("info"):
             cl.id3_headers = dct["info"]
@@ -158,7 +158,7 @@ class RadioServer(protocol.Protocol):
         elif dct.has_key("buffer"):
             buffer = dct['buffer'].decode('base64')
             self.sendClients(buffer, bin=True)
-
+    
     def removeClient(self, id):
         for client in cl.clients:
             if client.id == id:
