@@ -6,6 +6,7 @@ import json
 import header
 import re
 
+
 def get(data):
     pattern = r"GET (/.*?)\s+HTTP"
     m=re.search(pattern, data)
@@ -50,7 +51,40 @@ class RadioServer(protocol.Protocol):
         try: dct = json.loads(data)
         except: dct = {}
 
-        if get(data) == "/title":
+        if get(data) == "/":
+            f = open("index.html", "r")
+            content = f.read()
+            f.close()
+            resp = "HTTP/1.1 200 OK\r\n" + header.HTTP_RESP.format(
+                "text/html",
+                len(content),
+                content.replace("$host", self.transport.getHost().host).replace("$port", str(config.PyCasterPort)))
+            print("Client-Http-GET: " + get(data))
+            self.HTTPSendClient(resp, self.id)
+
+        elif get(data) == "/img/background.jpg":
+            f = open("img/background.jpg", "rb")
+            content = f.read()
+            f.close()
+            resp = "HTTP/1.1 200 OK\r\n" + header.HTTP_RESP.format(
+                "image/jpeg",
+                len(content),
+                content)
+            print("Client-Http-GET: " + get(data))
+            self.HTTPSendClient(resp, self.id)
+
+        elif get(data) == "/img/content-bg.png":
+            f = open("img/content-bg.png", "rb")
+            content = f.read()
+            f.close()
+            resp = "HTTP/1.1 200 OK\r\n" + header.HTTP_RESP.format(
+                "text/html",
+                len(content),
+                content)
+            print("Client-Http-GET: " + get(data))
+            self.HTTPSendClient(resp, self.id)
+
+        elif get(data) == "/title":
             resp = "HTTP/1.1 200 OK\r\n"+config.ORIGIN+"\r\n"+ header.HTTP_RESP.format(
                 "text/plain",
                 len(cl.id3_headers['title']),
@@ -87,6 +121,15 @@ class RadioServer(protocol.Protocol):
                 "text/plain",
                 len(str(cl.id3_headers['length'])),
                 str(cl.id3_headers['length']))
+            print("Client-Http-GET: " + get(data))
+            self.HTTPSendClient(resp, self.id)
+
+        elif not cl.source:
+            content = "<b>Source not connected..</b>"
+            resp = "HTTP/1.1 200 OK\r\n" + header.HTTP_RESP.format(
+                "text/html",
+                len(content),
+                content)
             print("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp, self.id)
 
