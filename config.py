@@ -1,30 +1,9 @@
-import sys
-
-PyCasterAuth = "hackme"
+PyCasterHost = "127.0.0.1"
 PyCasterPort = 4446
-PyCasterSSL = False
-PyCasterSSLKey = None
-PyCasterSSLCert = None
-PyCasterMaxListeners = 32
-PyCasterSendLogging = False
-PyCasterLogFile=open("pycaster.log", "w")#can be sys.stdout
-ORIGIN="Access-Control-Allow-Origin: SAMEORIGIN"
-pages = [
-    '/',
-    '/listeners',
-    '/max-listeners',
-    '/title',
-    '/length',
-    '/bitrate',
-    '/img/background.jpg',
-    '/img/content-bg.png'
-]
-
-
-
-
-
-
-
-
-
+PyCasterAuth = "hackme"
+PyCasterMount = None
+PyCasterSSL = True
+playlist = None
+loop = False
+shuffle = False
+directory = "music/*.mp3"

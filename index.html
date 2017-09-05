@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PyCaster v.0.8</title>
+    <title>PyCaster v.0.9</title>
     <style type="text/css">
         body {
             /* supports all browsers */
@@ -70,7 +70,7 @@
 </head>
 <body>
     <div class="container">
-        <p id="ptitle">PyCaster: 0.8</p>
+        <p id="ptitle">PyCaster: 0.9</p>
         <span id="ptitle">Run your own radio: <a href="https://github.com/tinker1234/PyCaster/" target="_blank">GitHub</a></span>
 
         <div class="content">
@@ -87,7 +87,13 @@
             <span class="text">Bitrate: </span><span id="bitrate"></span>
             <br>
             <audio controls id="audio">
-                <source type="audio/mp3" src="//$host.ga:$port/;">
+                <!--
+                 Anything you see with "$" in front of it is replaced with another value
+                 host: ip of server
+                 port: port set in cong file
+                 mount: where live stream sits
+                 -->
+                <source type="audio/mp3" src="//$host:$port/$mount">
             </audio>
             <br>
             <div id="footer">
