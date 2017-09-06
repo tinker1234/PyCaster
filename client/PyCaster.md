@@ -4,6 +4,7 @@ PyCasterHost = "127.0.0.1" # server host
 PyCasterPort = 4446 # server port
 PyCasterAuth = "123abc" # auth to be sent to the server
 PyCasterSSL = False # connect via https
+PyCasterMount = None # mount sent to the server
 playlist = None # playlist of set mp3s
 loop = False # never end stream, if false the client wil close after all files have been played
 shuffle = False # shuffle the songs, this shuffles everytime getSongs is called
@@ -17,6 +18,7 @@ It returns a file object
 
 # login_as_source method
 Sends the auth to the server
+Sends mount to server
 
 # errors
 ```
