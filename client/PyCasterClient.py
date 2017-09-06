@@ -62,7 +62,8 @@ class Pycaster:
             raise PyCasterError.PyCasterInvalidAuth
 
     def login_as_source(self):
-        data = self.events(PyCasterAuth=config.PyCasterAuth)
+        if config.PyCasterMount: data = self.events(PyCasterAuth=config.PyCasterAuth, PyCasterMount=config.PyCasterMount)
+        else: data = self.events(PyCasterAuth=config.PyCasterAuth)
         self._socket.send(data)
 
     def loopme(self):
