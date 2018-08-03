@@ -14,7 +14,7 @@ server up at: [radio](http://otku.ga:4446/)
 2. better documentation
 3. an actual mini template for http side of server
 \
-# config.py
+# Server config.py
 
 ```python
 PyCasterAuth = "123abc" # auth source will send
@@ -27,6 +27,19 @@ PyCasterSendLogging = False # log whats sent number of bytes and id/peer
 PyCasterLogFile=open("pycaster.log", "w") # can be sys.stdout
 pages = [] # list of urls server will ignore sending buffer data to
 ```
+# Client config.py
+```python
+PyCasterHost = "127.0.0.1" # host to connect to PyCaster server
+PyCasterPort = 4446 # Port
+PyCasterAuth = "hackme" # Password to connect to server to stream music
+PyCasterSSL = False # Use SSL for HTTPS connections
+playlist = None # Playlist file a new line per song
+loop = False # loop directory or playlist
+shuffle = False # Shuffle songs
+directory = None # must be /path/to/songs/*.mp3
+PyCasterMount = None #mount point default is /;
+```
+
 # Special vars in index.html
 `$host` replaced with server host
 `$port` replaced with port set in server config
