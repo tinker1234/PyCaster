@@ -49,4 +49,5 @@ PyCasterMount = None #mount point default is /;
 ```bash
 pip -r requirements.txt
 python server.py
+python client/PyCaster.py
 ``
