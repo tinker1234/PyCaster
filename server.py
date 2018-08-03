@@ -192,7 +192,7 @@ class RadioServer(protocol.Protocol):
         print("Client-Http-Resp-ID: " + self.id)
         print("Client-Http-Resp-IP: " + self.peer)
         self.transport.write(msg)
-        self.transport.loseConnection()
+
 
     def sendClients(self, msg, bin=False):
         for client in cl.clients:
