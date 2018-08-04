@@ -17,7 +17,7 @@ server up at: [radio](http://otku.ga:4446/)
 # Server config.py
 
 ```python
-PyCasterAuth = "123abc" # auth source will send
+PyCasterAuth = "hackme" # auth source will send
 PyCasterPort = 4446 # server port
 PyCasterSSL = False # use ssl/tls
 PyCasterSSLKey = None # only need to worry about if PyCasterSSL is enabled
