@@ -67,4 +67,4 @@ class PyCaster(PyCasterClient.PyCaster):
 
 if __name__=="__main__":
     pyc = PyCaster()
-    pyc.mainLoop()
+    pyc.main()
