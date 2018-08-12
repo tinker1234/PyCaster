@@ -18,11 +18,11 @@ def log(msg, evt="info"):
         return '['+colored("WRN", 'yellow')+'] - ' + colored(time.ctime(), 'magenta', attrs=['underline']) + " "+ colored(msg, color="yellow")
     if len(_log) == 0:
         _log.append(m)
-        f=open("log/PyCaster.log", 'w')
+        f=open("log/PyCasterServer.log", 'w')
         f.write("LOG STARTED: " + time.ctime() + '\n' + m)
         f.close()
     else:
         _log.append(m)
-        f = open("log/PyCaster.log", 'w')
+        f = open("log/PyCasterServer.log", 'w')
         f.write('\n'.join(_log))
         f.close()

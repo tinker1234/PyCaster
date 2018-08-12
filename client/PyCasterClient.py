@@ -22,7 +22,7 @@ class Pycaster:
         except Exception as e:
             raise PyCasterError.PyCasterConnect(e.message)
 
-ef event(self, **kw):
+    def event(self, **kw):
         k = json.dumps(kw)
         self._ws.send(k)
 
