@@ -5,6 +5,7 @@ import uuid
 import json
 import header
 import re
+import log
 
 
 def get(data):
@@ -31,22 +32,22 @@ class RadioServer(protocol.Protocol):
         if config.PyCasterMaxListeners != len(cl.clients):
             self.id = str(uuid.uuid4())
             self.peer = str(self.transport.getPeer())
-            print("Client-Connected-IP: "+self.peer)
-            print("Client-Connected-ID: " + self.id)
+            log.log("Client-Connected-IP: "+self.peer)
+            log.log("Client-Connected-ID: " + self.id)
         else:
             self.transport.abortConnection()
-            print("Client-Limit")
+            log.log("Client-Limit")
 
     def connectionLost(self, reason):
         if self.id == cl.sourceID:
-            print("Source-Closed: "+ str(reason))
+            log.log("Source-Closed: "+ str(reason))
             cl.sourceID = None
             cl.source = None
         else:
             self.removeClient(self.id)
-            print("Client-Closed-Reason: " + str(reason))
-            print("Client-Closed-IP: " + self.peer)
-            print("Client-Closed-ID: " + self.id)
+            log.log("Client-Closed-Reason: " + str(reason))
+            log.log("Client-Closed-IP: " + self.peer)
+            log.log("Client-Closed-ID: " + self.id)
 
     def dataReceived(self, data):
         try: dct = json.loads(data)
@@ -62,7 +63,7 @@ class RadioServer(protocol.Protocol):
                 "text/html",
                 len(content),
                 content.replace("$host", self.transport.getHost().host).replace("$port", str(config.PyCasterPort)).replace("$mount", self.mount))
-            print("Client-Http-GET: " + get(data))
+            log.log("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp)
 
         elif get(data) == "/img/background.jpg":
@@ -73,7 +74,7 @@ class RadioServer(protocol.Protocol):
                 "image/jpeg",
                 len(content),
                 content)
-            print("Client-Http-GET: " + get(data))
+            log.log("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp)
 
         elif get(data) == "/img/content-bg.png":
@@ -84,7 +85,7 @@ class RadioServer(protocol.Protocol):
                 "text/html",
                 len(content),
                 content)
-            print("Client-Http-GET: " + get(data))
+            log.log("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp)
 
         elif get(data) == "/title":
@@ -92,7 +93,7 @@ class RadioServer(protocol.Protocol):
                 "text/plain",
                 len(cl.id3_headers['title']),
                 cl.id3_headers['title'])
-            print("Client-Http-GET: " + get(data))
+            log.log("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp)
 
         elif get(data) == "/listeners":
@@ -100,7 +101,7 @@ class RadioServer(protocol.Protocol):
                 "text/plain",
                 len(str(len(cl.clients))),
                 str(len(cl.clients)))
-            print("Client-Http-GET: " + get(data))
+            log.log("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp)
 
         elif get(data) == "/max-listeners":
@@ -108,7 +109,7 @@ class RadioServer(protocol.Protocol):
                 "text/plain",
                 len(str(config.PyCasterMaxListeners)),
                 str(config.PyCasterMaxListeners))
-            print("Client-Http-GET: " + get(data))
+            log.log("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp)
 
         elif get(data) == "/bitrate":
@@ -116,7 +117,7 @@ class RadioServer(protocol.Protocol):
                 "text/plain",
                 len(str(cl.id3_headers['bitrate'])),
                 str(cl.id3_headers['bitrate']))
-            print("Client-Http-GET: " + get(data))
+            log.log("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp)
 
         elif get(data) == "/length":
@@ -124,7 +125,7 @@ class RadioServer(protocol.Protocol):
                 "text/plain",
                 len(str(cl.id3_headers['length'])),
                 str(cl.id3_headers['length']))
-            print("Client-Http-GET: " + get(data))
+            log.log("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp)
 
         elif dct.has_key("PyCasterAuth"):
@@ -133,17 +134,25 @@ class RadioServer(protocol.Protocol):
                 if auth == config.PyCasterAuth:
                     cl.source = self
                     cl.sourceID = self.id
-                    self.transport.write("ok")
-                    print("Source-Registered")
-                    print("Source-ID: " + self.id)
+                    event = {"login": "OK", "message": "None"}
+                    event = json.dumps(event)
+                    self.transport.write(event)
+                    log.log("Source-Registered")
+                    log.log("Source-ID: " + self.id)
                 else:
-                    self.transport.write("denied")
-                    print("Source-Login-Denied-IP: " + self.peer)
-                    print("Source-Login-Denied-ID: " + self.id)
+
+                    event = {"login": "denied", "message": "Invalid auth"}
+                    event = json.dumps(event)
+                    self.transport.write(event)
+                    log.log("Source-Login-Denied-IP: " + self.peer)
+                    log.log("Source-Login-Denied-ID: " + self.id)
 
             else:
-                print("Source-Exists-IP: " + self.peer)
-                print("Source-Exists-ID: " + self.id)
+                log.log("Source-Exists-IP: " + self.peer)
+                log.log("Source-Exists-ID: " + self.id)
+                event = {"login": "denied", "message": "Source exists"}
+                event = json.dumps(event)
+                self.transport.write(event)
                 self.closeCl(self.id)
         elif dct.has_key("PyCasterMount"):
             self.mount = dct['PyCasterMount']
@@ -161,7 +170,7 @@ class RadioServer(protocol.Protocol):
                 "text/html",
                 len(content),
                 content)
-            print("Client-Http-GET: " + get(data))
+            log.log("Client-Http-GET: " + get(data))
             self.HTTPSendClient(resp)
 
         elif not self.mount:
@@ -185,7 +194,7 @@ class RadioServer(protocol.Protocol):
             if client.id == id:
                 self.removeClient(id)
                 client.transport.abortConnection()
-                print("Server-Closed-Client: (%s, %s)" % (id, client.peer))
+                log.log("Server-Closed-Client: (%s, %s)" % (id, client.peer))
 
 
     def HTTPSendClient(self, msg):
@@ -211,7 +220,7 @@ class RadioServer(protocol.Protocol):
                     cl.sent_header.append(client)
             client.transport.write(msg)
             if config.PyCasterSendLogging:
-                print("SENT %i bytes TO %s" % (len(msg), client.id))
+                log.log("SENT %i bytes TO %s" % (len(msg), client.id))
 
 
 if __name__=="__main__":

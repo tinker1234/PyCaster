@@ -6,37 +6,38 @@ import PyCasterClient
 import config
 
 
-class PyCaster:
-    def __init__(self):
-        self._client = PyCasterClient.Pycaster()
-        self._client.login_as_source()
-        self.count = 0
+class PyCaster(PyCasterClient.PyCaster):
+    def init(self):
+        self.login_as_source()
+        self.count = -1
+
 
     def getSongs(self):
-        if config.directory:
-            print(log.log("Using directory: "+ config.directory))
-            songs = glob.glob(config.directory)
-            if config.shuffle:
-                random.shuffle(songs)
-            print(log.log("Directory-Shuffle: %s,  with %i songs" % (config.shuffle, len(songs))))
-            return songs
+        if config.directory: return self.load_directory()
+        elif config.playlist: return self.load_playlist()
 
-        elif config.playlist:
-            try:
-                print(log.log("Using playlist: " + config.playlist))
-                songs = list()
-                f = open(config.playlist, "r")
-                for entry in f.readlines():
-                    songs.append(entry.strip())
-                f.close()
-                if config.shuffle:
-                    random.shuffle(songs)
-                print(log.log("Playlist-Shuffle: %s,  with %i songs" % (config.shuffle, len(songs))))
-                return songs
-            except:
-                print(log.log("Playlist not found", "err"))
-                raise Exception(config.playlist + ' not found..')
+    def load_directory(self, directory=None, pattern=None):
+        """
+        if all values are None it sets values from config.py
+        """
+        if directory and pattern:
+            songs = self.load_from_dir(directory=directory, pattern=pattern)
+        elif directory:
+            songs = self.load_from_dir(directory=directory)
+        elif pattern:
+            songs = self.load_from_dir(pattern=pattern)
+        else:
+            songs = self.load_from_dir()
+        return songs
 
+    def load_playlist(self, playlist = None):
+        """
+        if all values are None it sets values from config.py
+        """
+        if playlist:
+            return self.load_from_playlist(playlist=playlist)
+        else:
+            return self.load_from_playlist()
 
     def _next(self):
         songs = self.getSongs()
@@ -45,24 +46,23 @@ class PyCaster:
                 self.count = 0
             else:
                 self.count += 1
-            self.mainLoop()
         else:
             self.count += 1 # error will stop loop
-            self.mainLoop()
+        self.main()
 
-    def mainLoop(self):
-        song = self._client.file(self.getSongs()[self.count])
-        print(log.log("Currently Playing: (" + song.name + ") with loop %s" % config.loop))
+
+    def main(self):
+        song = self.file(self.getSongs()[self.count])
         buf = song.read(4096)
         while True:
             nbuf = buf
             buf = song.read(4096)
-            self._client.loopme()
+            self.loopme()
             if len(nbuf) == 0:
-                log.log(song.name + " has ended")
                 break
-            self._client.send(nbuf)
-            time.sleep(0.1)
+            self.send(nbuf)
+            time.sleep(1)
+
         self._next()
 
 if __name__=="__main__":
