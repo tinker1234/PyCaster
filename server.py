@@ -224,11 +224,9 @@ class RadioServer(protocol.Protocol):
 
 if __name__=="__main__":
     import sys
-    from twisted.python import log
     key = config.PyCasterSSLKey
     cert = config.PyCasterSSLCert
     factory = protocol.Factory()
-    log.startLogging(sys.stdout)
     factory.protocol = RadioServer
     if config.PyCasterSSL:
         reactor.listenSSL(config.PyCasterPort, factory,  ssl.DefaultOpenSSLContextFactory(key, cert))
