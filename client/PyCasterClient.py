@@ -8,7 +8,7 @@ import base64
 
 
 
-class Pycaster:
+class PyCaster:
     def __init__(self):
         self.ok = False
         self._listen = True
