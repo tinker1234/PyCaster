@@ -8,14 +8,15 @@ import os
 import base64
 import glob
 import log
+import time
 
 
 
 class PyCaster:
     def __init__(self):
         self.ok = False
+        self.id3 = {}
         self._listen = True
-        self.init()
         try:
             if config.PyCasterSSL:
                 self._socket = SSLSocket.SSLSocket().socket()
@@ -25,6 +26,7 @@ class PyCaster:
                 self._socket.connect((config.PyCasterHost, config.PyCasterPort))
         except Exception as e:
             raise PyCasterError.PyCasterConnect(e.message)
+        self.init()
 
     def event(self, **kw):
         k = json.dumps(kw)
