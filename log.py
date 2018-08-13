@@ -1,3 +1,6 @@
+import time
+
+
 _log = list()
 
 def log(msg, evt="info"):
