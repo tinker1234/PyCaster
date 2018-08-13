@@ -28,7 +28,7 @@ class PyCaster:
 
     def event(self, **kw):
         k = json.dumps(kw)
-        self._ws.send(k)
+        self.>_socket.send(k)
 
     def login_as_source(self):
         if not config.PyCasterMount:
