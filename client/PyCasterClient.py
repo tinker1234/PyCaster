@@ -15,6 +15,7 @@ class PyCaster:
     def __init__(self):
         self.ok = False
         self._listen = True
+        self.init()
         try:
             if config.PyCasterSSL:
                 self._socket = SSLSocket.SSLSocket().socket()
@@ -96,3 +97,7 @@ class PyCaster:
             random.shuffle(gl)
         log.log("Using directory: %s found %i songs" % (directory.replace(pattern, ""), len(gl)), 0)
         return gl
+
+
+    def init(self):
+        pass
