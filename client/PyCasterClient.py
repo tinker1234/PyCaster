@@ -4,6 +4,7 @@ import PyCasterError
 import SSLSocket
 import socket
 import mutagen
+import os
 import base64
 
 

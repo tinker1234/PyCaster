@@ -5,7 +5,7 @@ import json
 import header
 import re
 import log
-
+import base64
 
 def get(data):
     pattern = r"GET (/.*?)\s+HTTP"
@@ -160,7 +160,7 @@ class RadioServer(protocol.Protocol):
             cl.id3_headers = dct["info"]
 
         elif dct.has_key("buffer"):
-            buffer = dct['buffer'].decode('base64')
+            buffer = base64.b64decode(dct['buffer'])
             self.sendClients(buffer, bin=True)
 
         elif not cl.source:
