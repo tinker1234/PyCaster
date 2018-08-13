@@ -1,4 +1,5 @@
 import time
+from termcolor import colored
 
 
 _log = list()
