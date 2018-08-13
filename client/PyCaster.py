@@ -61,7 +61,7 @@ class PyCaster(PyCasterClient.PyCaster):
             if len(nbuf) == 0:
                 break
             self.send(nbuf)
-            time.sleep(1)
+            time.sleep(0.1)
 
         self._next()
 
