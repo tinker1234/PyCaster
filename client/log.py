@@ -34,5 +34,5 @@ def Log(msg, evt="info"):
         f.write('\n'.join(_log))
         f.close()
 
-def log(msg, evt="info):
+def log(msg, evt="info"):
     print(Log(msg, evt))
