@@ -4,7 +4,7 @@ from termcolor import colored
 
 _log = list()
 
-def log(msg, evt="info"):
+def Log(msg, evt="info"):
     f = open("log/PyCasterServer.log", "r")
     for line in f.readlines():
         _log.append(line.strip())
@@ -30,3 +30,6 @@ def log(msg, evt="info"):
         f = open("log/PyCasterServer.log", 'w')
         f.write('\n'.join(_log))
         f.close()
+ 
+def log(msg, evt="info"):
+    print(Log(msg, evt))
