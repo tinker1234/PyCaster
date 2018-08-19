@@ -4,7 +4,10 @@ colored = termcolor.colored
 
 _log = list()
 
-def log(msg, evt="info"):
+def Log(msg, evt="info"):
+    if evt == 0: evt = "info"
+    if evt == 1: evt = "warn"
+    if evt == 2: evt = "err"
     f = open("log/PyCaster.log", "r")
     for line in f.readlines():
         _log.append(line.strip())
@@ -30,3 +33,6 @@ def log(msg, evt="info"):
         f = open("log/PyCaster.log", 'w')
         f.write('\n'.join(_log))
         f.close()
+
+def log(msg, evt="info):
+    print(Log(msg, evt))
