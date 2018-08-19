@@ -197,8 +197,8 @@ class RadioServer(protocol.Protocol):
 
 
     def HTTPSendClient(self, msg):
-        print("Client-Http-Resp-ID: " + self.id)
-        print("Client-Http-Resp-IP: " + self.peer)
+        log.log("Client-Http-Resp-ID: " + self.id)
+        log.log("Client-Http-Resp-IP: " + self.peer)
         self.transport.write(msg)
 
 
