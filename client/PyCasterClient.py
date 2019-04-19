@@ -102,19 +102,20 @@ class PyCaster:
         return gl
     
     def load_from_playlist(self, playlist = config.playlist):
-		"""
-		@playlist: playlist file filled with songs 
-		"""
-		songs = list()
-		f = open(playlist, "r")
-		for line in f.readlines():
-			if len(line) != 0:
-				line = line.strip()
-				songs.append(line)
-		f.close()
-		if config.shuffle:
-			random.shuffle(songs)
-		log.log("Using playlist: %s found %i songs" % (playlist, len(songs)), 0)
+	"""
+	@playlist: playlist file filled with songs 
+	"""
+	songs = list()
+	f = open(playlist, "r")
+	for line in f.readlines():
+		if len(line) != 0:
+			line = line.strip()
+			songs.append(line)
+	f.close()
+	if config.shuffle:
+		random.shuffle(songs)
+	log.log("Using playlist: %s found %i songs" % (playlist, len(songs)), 0)
+        return songs
 
 
     def init(self):
