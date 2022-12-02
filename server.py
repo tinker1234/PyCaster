@@ -21,7 +21,8 @@ class cl:
     id3_headers = {
         "title": "None",
         "length": "0",
-        "bitrate": "0"
+        "bitrate": "0",
+        "type": "audio/mp3"
     }
 
 class RadioServer(protocol.Protocol):
@@ -188,7 +189,7 @@ class RadioServer(protocol.Protocol):
                     .replace("$listen", str(len(cl.clients)))\
                     .replace("$bitrate", str(cl.id3_headers['bitrate']))\
                     .replace("$max", str(config.PyCasterMaxListeners))\
-                    .replace("$type", config.PyCasterContentType)
+                    .replace("$type", cl.id3_headers['type'])
                 client.transport.write(f"HTTP/1.1 200 OK\r\n{head}".encode())
                 cl.sent_header.append(client)
             client.transport.write(msg)

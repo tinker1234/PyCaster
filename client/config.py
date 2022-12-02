@@ -7,5 +7,6 @@ loop = False
 shuffle = False
 directory = None
 PyCasterMount = None
+PyCasterContentType="audio/mp3"
 PyCasterLogFile="log/PyCaster.log"
 

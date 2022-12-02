@@ -57,6 +57,7 @@ class PyCaster:
         self.id3['bitrate'] = mp3.info.bitrate
         self.id3['length'] = mp3.info.length
         self.id3['stream-start'] = time.time() * 1000
+        self.id3['type'] = config.PyCasterContentType
         self.event(info=self.id3)
         log.log("Now Playing: " + title, 0)
         log.log(f"Loop: {config.loop}\nShuffle: {config.shuffle}", 0)
