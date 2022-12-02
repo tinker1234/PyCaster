@@ -35,6 +35,7 @@ def Log(msg, evt="info"):
         f = open(config.PyCasterLogFile, 'w')
         f.write('\n'.join(_log))
         f.close()
+    return ret
  
 def log(msg, evt="info"):
     print(Log(msg, evt))
