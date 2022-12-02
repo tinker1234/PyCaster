@@ -26,7 +26,7 @@ PyCasterSSLKey = None # only need to worry about if PyCasterSSL is enabled
 PyCasterSSLCert = None # only need to worry about if PyCasterSSL is enabled
 PyCasterMaxListeners = 32 # max connections not including source
 PyCasterSendLogging = False # log whats sent number of bytes and id/peer
-PyCasterLogFile=open("pycaster.log", "w") # can be sys.stdout
+PyCasterLogFile="log/PyCasterServer.log"
 pages = [] # list of urls server will ignore sending buffer data to
 ```
 # Client config.py

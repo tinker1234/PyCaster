@@ -197,7 +197,6 @@ class RadioServer(protocol.Protocol):
 
 
 if __name__=="__main__":
-    import sys
     key = config.PyCasterSSLKey
     cert = config.PyCasterSSLCert
     factory = protocol.Factory()
