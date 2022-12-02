@@ -7,6 +7,7 @@ colored = termcolor.colored
 _log = list()
 
 def Log(msg, evt="info"):
+    global _log
     if evt == 0: evt = "info"
     if evt == 1: evt = "warn"
     if evt == 2: evt = "err"
