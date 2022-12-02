@@ -5,10 +5,14 @@ import config
 _log = list()
 
 def Log(msg, evt="info"):
-    f = open(config.PyCasterLogFile, "r")
-    for line in f.readlines():
-        _log.append(line.strip())
-    f.close()
+    try:
+        f = open(config.PyCasterLogFile, "r")
+        for line in f.readlines():
+            _log.append(line.strip())
+        f.close()
+    except:
+        open(config.PyCasterLogFile, "w")
+        _log = list()
     m = ""
     if evt == "info":
         m = '[INF] - '+ time.ctime() + " " + msg
