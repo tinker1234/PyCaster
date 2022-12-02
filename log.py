@@ -5,6 +5,7 @@ import config
 _log = list()
 
 def Log(msg, evt="info"):
+    global _log
     try:
         f = open(config.PyCasterLogFile, "r")
         for line in f.readlines():
