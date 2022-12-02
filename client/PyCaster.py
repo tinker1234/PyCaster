@@ -1,7 +1,4 @@
-import glob
-import random
 import time
-import log
 import PyCasterClient
 import config
 
@@ -42,7 +39,7 @@ class PyCaster(PyCasterClient.PyCaster):
     def _next(self):
         songs = self.getSongs()
         if config.loop:
-            if len(songs) >= self.count+1:
+            if len(songs) >= self.count + 1:
                 self.count = 0
             else:
                 self.count += 1
