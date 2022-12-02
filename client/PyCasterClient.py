@@ -28,11 +28,11 @@ class PyCaster:
                 self._socket = socket.socket()
                 self._socket.connect((config.PyCasterHost, config.PyCasterPort))
         except Exception as e:
-            raise PyCasterError.PyCasterConnect(e.message)
+            raise PyCasterError.PyCasterConnect(e)
         self.init()
 
     def event(self, **kw):
-        k = json.dumps(kw)
+        k = json.dumps(kw).encode()
         self._socket.send(k)
 
     def login_as_source(self):
