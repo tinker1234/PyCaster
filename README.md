@@ -40,6 +40,7 @@ loop = False # loop directory or playlist
 shuffle = False # Shuffle songs
 directory = None # must be /path/to/songs/*.mp3
 PyCasterMount = None #mount point default is /;
+PyCasterLogFile="log/PyCaster.log" # log file location
 ```
 
 # Special vars in index.html
