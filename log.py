@@ -6,14 +6,6 @@ _log = list()
 
 def Log(msg, evt="info"):
     global _log
-    try:
-        f = open(config.PyCasterLogFile, "r")
-        for line in f.readlines():
-            _log.append(line.strip())
-        f.close()
-    except:
-        open(config.PyCasterLogFile, "w")
-        _log = list()
     m = ""
     if evt == "info":
         m = '[INF] - '+ time.ctime() + " " + msg
@@ -26,9 +18,10 @@ def Log(msg, evt="info"):
         m = '[WRN] - ' + time.ctime() + " " + msg
         ret = '['+colored("WRN", 'yellow')+'] - ' + colored(time.ctime(), 'magenta', attrs=['underline']) + " "+ colored(msg, color="yellow")
     if len(_log) == 0:
-        _log.append(m)
+        s = "[INF] - LOG STARTED: " + time.ctime() + '\n' + m
+        _log.append(s)
         f=open(config.PyCasterLogFile, 'w')
-        f.write("LOG STARTED: " + time.ctime() + '\n' + m)
+        f.write(s)
         f.close()
     else:
         _log.append(m)
