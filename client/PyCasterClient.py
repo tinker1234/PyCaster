@@ -1,7 +1,6 @@
 import config
 import json
 import PyCasterError
-import SSLSocket
 import socket
 import mutagen
 import os
@@ -10,6 +9,7 @@ import glob
 import log
 import time
 import random
+import ssl
 
 
 
@@ -20,8 +20,10 @@ class PyCaster:
         self._listen = True
         try:
             if config.PyCasterSSL:
-                self._socket = SSLSocket.SSLSocket().socket()
-                self._socket.connect((config.PyCasterHost, config.PyCasterPort))
+                ctx = ssl.create_default_context()
+                with socket.create_connection(config.PyCasterHost, config.PyCasterPort) as sock:
+                    with ctx.wrap_socket(sock, server_hostname=config.PyCasterHost) as self._socket:
+                        pass
             else:
                 self._socket = socket.socket()
                 self._socket.connect((config.PyCasterHost, config.PyCasterPort))
@@ -57,7 +59,7 @@ class PyCaster:
         self.id3['stream-start'] = time.time() * 1000
         self.event(info=self.id3)
         log.log("Now Playing: " + title, 0)
-        log.log("Loop: %s\nShuffle: %s" % (config.loop, config.shuffle), 0)
+        log.log(f"Loop: {config.loop}\nShuffle: {config.shuffle}", 0)
         return f
 
     def loopme(self):
@@ -74,10 +76,10 @@ class PyCaster:
                     self.ok = True
                     log.log("OK", 0)
                 if login == "denied":
-                    log.log(msg, 0)
+                    log.log(msg, 2)
                     raise PyCasterError.PyCasterInvalidAuth(msg)
                 if login == "source-exists":
-                    log.log(msg, 0)
+                    log.log(msg, 2)
                     raise PyCasterError.PyCasterAlreadyLoggedIn(msg)
 
 
@@ -98,23 +100,23 @@ class PyCaster:
         gl = glob.glob(directory)
         if config.shuffle:
             random.shuffle(gl)
-        log.log("Using directory: %s found %i songs" % (directory.replace(pattern, ""), len(gl)), 0)
+        log.log(f"Using directory: {directory.replace(pattern, '')}  found {len(gl)} songs", 0)
         return gl
     
     def load_from_playlist(self, playlist = config.playlist):
-	"""
-	@playlist: playlist file filled with songs 
-	"""
-	songs = list()
-	f = open(playlist, "r")
-	for line in f.readlines():
-		if len(line) != 0:
-			line = line.strip()
-			songs.append(line)
-	f.close()
-	if config.shuffle:
-		random.shuffle(songs)
-	log.log("Using playlist: %s found %i songs" % (playlist, len(songs)), 0)
+        """
+        @playlist: playlist file filled with songs 
+        """
+        songs = list()
+        f = open(playlist, "r")
+        for line in f.readlines():
+            if len(line) != 0:
+                line = line.strip()
+                songs.append(line)
+        f.close()
+        if config.shuffle:
+            random.shuffle(songs)
+        log.log(f"Using playlist: {playlist} found {len(songs)} songs", 0)
         return songs
 
 
