@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- vars -->
+    <script>
+        int = 1000 * 60; //1000ms * 60 == 1 minute
+        check = true; // grabs meta data
+    </script>
     <meta charset="UTF-8">
     <title>PyCaster v.0.10</title>
     <style type="text/css">
@@ -66,6 +71,9 @@
         #ptitle {
             color: goldenrod;
         }
+        #credit {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -97,7 +105,7 @@
             </audio>
             <br>
             <div id="footer">
-                <p align="center">
+                <p id="credit">
                     Please give credit to PyCaster devs either by name or linking to its GitHub
                 </p>
             </div>
@@ -120,8 +128,6 @@
 
 
     }
-    var int = 1000 * 60; //1000ms * 60 == 1 minute
-    var check = false;
 
     if (check) {
         window.setInterval(function () {grab();}, int);
