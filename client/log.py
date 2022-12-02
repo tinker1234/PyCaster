@@ -1,38 +1,45 @@
 import termcolor
 import time
-colored = termcolor.colored
+import config
 
+
+colored = termcolor.colored
 _log = list()
 
 def Log(msg, evt="info"):
     if evt == 0: evt = "info"
     if evt == 1: evt = "warn"
     if evt == 2: evt = "err"
-    f = open("log/PyCaster.log", "r")
-    for line in f.readlines():
-        _log.append(line.strip())
-    f.close()
+    try:
+        f = open(config.PyCasterLogFile, "r")
+        for line in f.readlines():
+            _log.append(line.strip())
+        f.close()
+    except:
+        open(config.PyCasterLogFile, "w")
+        _log = list()
     m = ""
     if evt == "info":
         m = '[INF] - '+ time.ctime() + " " + msg
-        return '['+colored("INF", 'green')+'] - ' + colored(time.ctime(), 'magenta', attrs=['underline']) + " "+ colored(msg, color="cyan")
+        ret = '['+colored("INF", 'green')+'] - ' + colored(time.ctime(), 'magenta', attrs=['underline']) + " "+ colored(msg, color="cyan")
 
     elif evt == "err":
         m = '[ERR] - ' + time.ctime() + " " + msg
-        return '['+colored("ERR", 'red')+'] - ' + colored(time.ctime(), 'magenta', attrs=['underline']) + " "+ colored(msg, color="red")
+        ret = '['+colored("ERR", 'red')+'] - ' + colored(time.ctime(), 'magenta', attrs=['underline']) + " "+ colored(msg, color="red")
     elif evt == "warn":
         m = '[WRN] - ' + time.ctime() + " " + msg
-        return '['+colored("WRN", 'yellow')+'] - ' + colored(time.ctime(), 'magenta', attrs=['underline']) + " "+ colored(msg, color="yellow")
+        ret = '['+colored("WRN", 'yellow')+'] - ' + colored(time.ctime(), 'magenta', attrs=['underline']) + " "+ colored(msg, color="yellow")
     if len(_log) == 0:
         _log.append(m)
-        f=open("log/PyCaster.log", 'w')
+        f=open(config.PyCasterLogFile, 'w')
         f.write("LOG STARTED: " + time.ctime() + '\n' + m)
         f.close()
     else:
         _log.append(m)
-        f = open("log/PyCaster.log", 'w')
+        f = open(config.PyCasterLogFile, 'w')
         f.write('\n'.join(_log))
         f.close()
+    return ret
 
 def log(msg, evt="info"):
     print(Log(msg, evt))

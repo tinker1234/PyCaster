@@ -7,4 +7,5 @@ loop = False
 shuffle = False
 directory = None
 PyCasterMount = None
+PyCasterLogFile="log/PyCaster.log"
 

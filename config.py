@@ -8,7 +8,7 @@ PyCasterSSLCert = None
 PyCasterMaxListeners = 32
 PyCasterSendLogging = False
 PyCasterContentType="audio/mp3"
-PyCasterLogFile=open("pycaster.log", "w")#can be sys.stdout
+PyCasterLogFile="log/PyCasterServer.log"
 ORIGIN=b"Access-Control-Allow-Origin: SAMEORIGIN"
 pages = [
     '/',
