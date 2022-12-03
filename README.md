@@ -48,6 +48,7 @@ PyCasterContentType="audio/mp3" # content type to send to server
 `$host` replaced with server host
 `$port` replaced with port set in server config
 `$mount` replaced with mount client sends if no mount then anything is a mountpoint
+`$type` replaced with content type sent by client (defaults to audio/mp3)
 
 # How to run 
 ```bash
