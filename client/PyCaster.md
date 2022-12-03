@@ -12,6 +12,7 @@ loop = False # never end stream, if false the client wil close after all files h
 shuffle = False # shuffle the songs, this shuffles everytime getSongs is called
 directory = None # this gets loaded into glob so directory path has to include regex
 # directory = "music/*.mp3"
+PyCasterContentType="audio/mp3" # content type to send to server
 PyCasterLogFile = "log/PyCaster.log
 ```
 

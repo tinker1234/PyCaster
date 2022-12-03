@@ -41,6 +41,7 @@ shuffle = False # Shuffle songs
 directory = None # must be /path/to/songs/*.mp3
 PyCasterMount = None #mount point default is /;
 PyCasterLogFile="log/PyCaster.log" # log file location
+PyCasterContentType="audio/mp3" # content type to send to server
 ```
 
 # Special vars in index.html
