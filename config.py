@@ -1,13 +1,13 @@
 import sys
 
 PyCasterAuth = "hackme"
-PyCasterDomain = "localhost"
 PyCasterPort = 4446
 PyCasterSSL = False
 PyCasterSSLKey = None
 PyCasterSSLCert = None
 PyCasterMaxListeners = 32
 PyCasterSendLogging = False
+PyCasterDomain="localhost"
 PyCasterLogFile="log/PyCasterServer.log"
 ORIGIN="Access-Control-Allow-Origin: SAMEORIGIN"
 pages = [

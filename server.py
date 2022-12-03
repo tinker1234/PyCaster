@@ -207,6 +207,6 @@ if __name__=="__main__":
         reactor.listenSSL(config.PyCasterPort, factory,  ssl.DefaultOpenSSLContextFactory(key, cert))
     else:
         reactor.listenTCP(config.PyCasterPort, factory)
-    log.log(f"Server Started: 0.0.0.0:{config.PyCasterPort} SSL: {config.PyCasterSSL}")
+    log.log(f"Server Started: {config.PyCasterDomain}:{config.PyCasterPort} SSL: {config.PyCasterSSL}")
     reactor.run()
 
