@@ -205,8 +205,8 @@ if __name__=="__main__":
     factory.protocol = RadioServer
     if config.PyCasterSSL:
         reactor.listenSSL(config.PyCasterPort, factory,  ssl.DefaultOpenSSLContextFactory(key, cert))
-        reactor.run()
     else:
         reactor.listenTCP(config.PyCasterPort, factory)
-        reactor.run()
+    log.log(f"Server Started: 0.0.0.0:{config.PyCasterPort} SSL: {config.PyCasterSSL}")
+    reactor.run()
 
