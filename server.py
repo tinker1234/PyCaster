@@ -56,6 +56,7 @@ class RadioServer(protocol.Protocol):
         if not self.mount:
             content = "<b>Source not connected</b>"
             self.HTTPSendClient(f"HTTP 200 OK\r\n{header.HTTP_RESP.format('text/html', len(content), content)}")
+        
         elif get(data) == "/":
             mount = ";"
             if self.mount:
@@ -142,12 +143,12 @@ class RadioServer(protocol.Protocol):
             buffer = base64.b64decode(dct['buffer'])
             self.sendClients(buffer)
         
+        elif get(data) == self.mount:
+            cl.clients.append(self)
+
         elif get(data) not in config.pages:
             content = "Not Found(404)"
             self.HTTPSendClient(f"HTTP 200 OK\r\n{header.HTTP_RESP.format('text/html', len(content), content)}")
-
-        elif get(data) == self.mount:
-            cl.clients.append(self)
 
     def removeClient(self, id):
         found = None
