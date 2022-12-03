@@ -1,6 +1,7 @@
 import sys
 
 PyCasterAuth = "hackme"
+PyCasterDomain = "localhost"
 PyCasterPort = 4446
 PyCasterSSL = False
 PyCasterSSLKey = None

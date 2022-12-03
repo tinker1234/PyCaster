@@ -63,7 +63,7 @@ class RadioServer(protocol.Protocol):
                 mount = self.mount
             with open("index.html", "r") as content:
                 content = content.read()
-                content = content.replace("$host", self.transport.getHost().host).replace("$port", str(config.PyCasterPort)).replace("$mount", mount).replace("$type", cl.id3_headers['type'])
+                content = content.replace("$host", config.PyCasterDomain).replace("$port", str(config.PyCasterPort)).replace("$mount", mount).replace("$type", cl.id3_headers['type'])
                 resp = f"HTTP/1.1 200 OK\r\n{config.ORIGIN}\r\n{header.HTTP_RESP.format('text/html', len(content), content)}"
                 log.log(f"Client-Http-GET: {get(data)}")
                 self.HTTPSendClient(resp)

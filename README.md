@@ -20,6 +20,7 @@ server up at: [radio](http://otku.ga:4446/)
 
 ```python
 PyCasterAuth = "hackme" # auth source will send
+PyCasterDomain = "localhost" # used for $host var instead of ip
 PyCasterPort = 4446 # server port
 PyCasterSSL = False # use ssl/tls
 PyCasterSSLKey = None # only need to worry about if PyCasterSSL is enabled
