@@ -164,11 +164,16 @@ class RadioServer(protocol.Protocol):
         self.transport.write(event)
 
     def closeCl(self, id):
+        found = False
+        c = None
         for client in cl.clients:
             if client.id == id:
-                self.removeClient(id)
-                client.transport.abortConnection()
-                log.log(f"Server-Closed-Client: ({id}, {client.peer})")
+                found = id
+                c = client
+        if found:
+            self.removeClient(id)
+            c.transport.abortConnection()
+            log.log(f"Server-Closed-Client: ({found}, {c.peer})")
 
 
     def HTTPSendClient(self, msg, bin=False):
