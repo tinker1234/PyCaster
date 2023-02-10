@@ -21,8 +21,8 @@ class PyCaster:
         try:
             if config.PyCasterSSL:
                 ctx = ssl.create_default_context()
-                with socket.create_connection(config.PyCasterHost, config.PyCasterPort) as sock:
-                    with ctx.wrap_socket(sock, server_hostname=config.PyCasterHost) as self._socket:
+                sock = socket.create_connection((config.PyCasterHost, config.PyCasterPort))
+                self._socket = ctx.wrap_socket(sock, server_hostname=config.PyCasterHost)
                         pass
             else:
                 self._socket = socket.socket()
